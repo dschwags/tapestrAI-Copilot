@@ -1,0 +1,1547 @@
+<!-- FILE GENERATED: 2025-10-08T14:03:00.000Z -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tapestrAI copilot v3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/opendyslexic@0.0.7/build/css/opendyslexic.min.css" rel="stylesheet">
+    <style>
+        .debug-btn { display: none; } /* Hidden by default */
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .collapsible-arrow {
+            transition: transform 0.2s ease-in-out;
+        }
+        .rotated {
+            transform: rotate(90deg);
+        }
+        /* Zebra striping for suggestion lists */
+        .suggestion-item:nth-child(even) {
+            background-color: #f9fafb; /* gray-50 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-lora {
+            font-family: 'Lora', serif;
+        }
+        .suggestion-header {
+            font-weight: 600;
+            color: #1e293b; /* slate-800 */
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0; /* slate-200 */
+        }
+
+        /* Accessibility Font Styles */
+        #app.font-default .content-font { font-family: 'Inter', sans-serif; }
+        #app.font-verdana .content-font { font-family: Verdana, sans-serif; }
+        #app.font-opendyslexic .content-font { font-family: 'OpenDyslexic', sans-serif; }
+        
+        /* Apply content font to specific elements */
+        #app p, #app textarea, #app .suggestion-item, #app #outline-reference-content, #app #linking-ideas-content, #app .suggestion-header, #app blockquote, #app ul li {
+            font-family: inherit; /* Inherit from the #app container */
+        }
+
+        /* Preserve UI fonts regardless of selection */
+        #app h1, #app h2, #app h3, #app h4, #app label, #app button, #app select {
+            font-family: 'Inter', sans-serif;
+        }
+        #app .font-lora {
+            font-family: 'Lora', serif;
+        }
+        body.font-verdana .font-lora,
+        body.font-opendyslexic .font-lora {
+             font-family: inherit;
+             font-weight: bold;
+        }
+
+
+        /* Style for font option previews */
+        #font-selector-default { font-family: 'Inter', sans-serif; }
+        #font-selector-verdana { font-family: Verdana, sans-serif; }
+        #font-selector-opendyslexic { font-family: 'OpenDyslexic', sans-serif; }
+
+    </style>
+</head>
+<body class="bg-slate-100 text-gray-800 font-sans p-4 sm:p-8">
+
+    <!-- Landing Page - Visible on initial load -->
+    <div id="landing-page" class="max-w-4xl mx-auto bg-slate-50 rounded-lg shadow-lg p-6 sm:p-10">
+        <!-- Hero section -->
+        <div class="text-center">
+            <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 font-lora">tapestrAI copilot</h1>
+        </div>
+
+        <div class="my-6 p-4 bg-white rounded-lg border border-slate-200">
+            <p class="text-lg text-gray-800 font-lora text-center">Every great essay begins with a single thread of an idea. tapestrAI helps you gather those threads, providing an intelligent framework to structure your arguments and refine your draft for clarity and impact, ensuring your unique voice remains.</p>
+        </div>
+
+        <!-- How it works section -->
+        <div class="text-center mb-6">
+            <h2 class="text-3xl font-semibold mb-6 font-lora">How It Works</h2>
+            <div class="flex flex-col md:flex-row items-stretch justify-center gap-2 text-left">
+                <!-- Step A -->
+                <div class="p-6 bg-white rounded-lg border border-slate-200 transition-transform duration-200 hover:shadow-lg hover:-translate-y-1 flex-1">
+                    <div class="flex items-start mb-3">
+                        <div class="bg-blue-100 text-blue-800 font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3 flex-shrink-0">A</div>
+                        <h3 class="font-bold text-xl">Define Your Essay</h3>
+                    </div>
+                    <p class="text-gray-700">Start with your essay question or assignment. Tell the copilot your topic and target word count to set the stage.</p>
+                </div>
+
+                <div class="hidden md:flex items-center text-2xl text-slate-400 mx-1">⇰</div>
+
+                <!-- Step B -->
+                <div class="p-6 bg-white rounded-lg border border-slate-200 transition-transform duration-200 hover:shadow-lg hover:-translate-y-1 flex-1">
+                     <div class="flex items-start mb-3">
+                        <div class="bg-blue-100 text-blue-800 font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3 flex-shrink-0">B</div>
+                        <h3 class="font-bold text-xl">Brainstorm with AI</h3>
+                    </div>
+                    <p class="text-gray-700">The copilot asks you guiding questions to help you explore your topic. Your answers become the core paragraphs of your essay.</p>
+                </div>
+
+                <div class="hidden md:flex items-center text-2xl text-slate-400 mx-1">⇰</div>
+
+                <!-- Step C -->
+                <div class="p-6 bg-white rounded-lg border border-slate-200 transition-transform duration-200 hover:shadow-lg hover:-translate-y-1 flex-1">
+                     <div class="flex items-start mb-3">
+                        <div class="bg-blue-100 text-blue-800 font-bold rounded-full h-8 w-8 flex items-center justify-center mr-3 flex-shrink-0">C</div>
+                        <h3 class="font-bold text-xl">Write & Refine</h3>
+                    </div>
+                    <p class="text-gray-700">Assemble your ideas into a draft. Use powerful AI tools to suggest titles, get feedback, and adjust the word count to perfection.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Key setup on Landing Page -->
+        <div id="api-key-helper" class="my-6 p-6 bg-white rounded-lg border border-slate-200">
+            <h3 class="font-bold text-xl text-gray-900 mb-2">
+                To Get Started, Enter Your API Key
+            </h3>
+            <p class="text-sm text-gray-600 mb-4">Your key creates a secure, private connection to the AI, ensuring your work is only visible to you.</p>
+            
+            <div class="flex rounded-md shadow-sm border border-slate-400 items-center">
+                <input type="password" id="api-key-input" class="block w-full rounded-none rounded-l-md pl-3 border-0 focus:ring-0">
+                <button id="toggle-api-key-btn" type="button" class="px-3 text-gray-500 hover:text-gray-700">
+                    <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.522 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                    </svg>
+                    <svg id="eye-closed" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clip-rule="evenodd" />
+                        <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.742L2.303 3.546A10.048 10.048 0 00.458 10c1.274 4.057 5.522 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
+                    </svg>
+                </button>
+                <button id="test-key-btn" type="button" class="relative inline-flex items-center space-x-2 px-4 py-2 border-l border-slate-400 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 whitespace-nowrap transition-colors duration-300">
+                    <span>🔑 Test Key</span>
+                </button>
+            </div>
+            
+            <div id="api-key-status" class="mt-1 text-sm"></div>
+            <div class="space-y-4 text-sm text-gray-700 mt-6">
+                <p class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    Don't have one or don't know what an API key is? We can help with that, and it doesn't have to cost you anything. The code behind tapestrAI (our app) and the brains of an AI (your API key) allows for a powerful guided writing experience—with you in the driver's seat and tapestrAI as your copilot.
+                </p>
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">How to get your key:</h4>
+                    <ol class="list-decimal list-inside space-y-1">
+                        <li>Go to <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-600 hover:underline">Google AI Studio</a>.</li>
+                        <li>Click "Create API key in new project".</li>
+                        <li>Copy the generated key & paste it above.</li>
+                    </ol>
+                </div>
+                <button id="forget-key-btn" class="text-xs text-blue-600 hover:underline hidden">Forget Saved Key</button>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <button id="launch-app-btn" title="Please enter and test your API key first" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                Launch tapestrAI & Start Writing
+            </button>
+        </div>
+    </div>
+
+    <!-- Main App Container - Initially Hidden -->
+    <div id="main-app-container" class="max-w-4xl mx-auto relative hidden">
+        <div id="global-controls" class="absolute top-6 left-6 right-6 z-10 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <label for="font-selector" class="text-xs text-gray-600">Choose Font:</label>
+                <select id="font-selector" class="text-xs rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option id="font-selector-default" value="default">Inter</option>
+                    <option id="font-selector-verdana" value="verdana">Verdana</option>
+                    <option id="font-selector-opendyslexic" value="opendyslexic">OpenDyslexic</option>
+                </select>
+            </div>
+            <button id="load-session-btn" class="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 text-sm transition-colors duration-300">📂 Load Session</button>
+            <input type="file" id="load-session-input" class="hidden" accept=".tapestrAI">
+        </div>
+
+        <div id="app" class="bg-slate-50 rounded-lg shadow-lg p-6 sm:p-10 pt-20">
+            
+            <div class="text-center border-b border-slate-200 pb-4 mb-6">
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 font-lora">tapestrAI copilot</h1>
+                <p class="text-gray-600 mt-1">Weaving your thoughts into compelling essays</p>
+            </div>
+
+            <div id="step-1">
+                <h2 class="text-2xl font-semibold mb-4">Step 2: Define Your Essay</h2>
+
+                <div class="mb-6 p-4 bg-white rounded-lg border border-slate-200">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Enter Your Essay Prompt</h3>
+                    <div class="flex justify-between items-start">
+                        <label for="prompt-input" class="block text-sm font-medium text-gray-700">Essay Prompt or Assignment <span class="text-red-500 italic text-xs">(required)</span></label>
+                        <div class="flex items-center gap-4">
+                             <label for="word-count-input" class="block text-sm font-medium text-gray-700 whitespace-nowrap">Target Word Count (optional)</label>
+                             <input type="number" id="word-count-input" class="block w-24 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 500">
+                        </div>
+                    </div>
+                    <textarea id="prompt-input" rows="3" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 'Analyze the main causes of the American Revolution.'"></textarea>
+                    <div class="text-right">
+                        <button id="debug-fill-prompt" class="debug-btn text-xs text-blue-600 hover:underline mt-1">[Quick Fill]</button>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-white rounded-lg border border-slate-200">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Choose Your Path</h3>
+                    <div class="space-y-6">
+                        <div class="p-4 border rounded-lg bg-amber-50">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                     <h4 class="font-semibold">Start from Scratch</h4>
+                                     <p class="text-sm text-gray-600 mt-1">Let the co-pilot guide you through brainstorming and outlining.</p>
+                                </div>
+                                <button id="start-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center disabled:opacity-50 flex-shrink-0 ml-4">
+                                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                    <span class="btn-text">Start Brainstorming →</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4 border rounded-lg bg-slate-100">
+                             <h4 class="font-semibold">Bring Your Own Draft</h4>
+                             <p class="text-sm text-gray-600 mt-1 mb-4">Paste your draft to use the refinement and editing tools directly.</p>
+                            <div class="flex justify-between items-center">
+                                <label for="import-draft-input" class="block text-sm font-medium text-gray-700">Paste your draft here</label>
+                                 <button id="debug-fill-import" class="debug-btn text-xs text-blue-600 hover:underline">[Quick Fill]</button>
+                            </div>
+                             <textarea id="import-draft-input" rows="6" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Paste your existing essay draft here..."></textarea>
+                             <div class="mt-4 text-center">
+                                <button id="refine-draft-now-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center mx-auto disabled:opacity-50">
+                                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                    <span class="btn-text">Start Refining →</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-2" class="hidden">
+                <h2 class="text-2xl font-semibold">Step 3: Brainstorm Your Ideas</h2>
+                <div class="mb-4 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg">
+                    <p class="text-sm text-gray-800"><strong>Your Essay Topic:</strong> <span id="brainstorm-topic"></span></p>
+                </div>
+                <div id="brainstorm-active">
+                    <p id="progress-indicator" class="text-gray-600 mb-4">Idea 1 of 3</p>
+                    <div class="bg-white border rounded-lg p-4 mb-4">
+                        <p class="font-semibold mb-2">AI-Generated Question:</p>
+                        <p id="question-display" class="text-lg text-gray-800">Generating your first question...</p>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <label for="answer-input" class="block text-sm font-medium text-gray-700">Your Answer (This will become a core paragraph)</label>
+                        <button id="debug-fill-answer" class="debug-btn text-xs text-blue-600 hover:underline">[Quick Fill]</button>
+                    </div>
+                    <textarea id="answer-input" rows="5" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Write your thoughts here..."></textarea>
+                    <div class="mt-4 flex justify-end gap-4">
+                        <button id="skip-question-btn" class="bg-gray-200 text-gray-700 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 flex items-center disabled:opacity-50 transition-colors duration-300">
+                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-700 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            <span class="btn-text">New Question 🎲</span>
+                        </button>
+                        <button id="save-answer-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 flex items-center justify-center disabled:opacity-50 transition-colors duration-300">
+                             <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            <span class="btn-text">Save Idea & Next →</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-center my-6 border-t border-b py-4">
+                    <p class="text-sm text-gray-600">Already have a draft you want to use?
+                        <button id="skip-to-draft-btn" class="text-blue-600 font-semibold hover:underline">Skip to Draft Mode</button>
+                    </p>
+                </div>
+
+                <div id="saved-answers-container" class="mt-8 border-t pt-4 hidden">
+                     <h3 class="text-xl font-semibold mb-2">Your Brainstormed Ideas</h3>
+                     <div id="saved-answers-display" class="space-y-2"></div>
+                </div>
+                <div id="step-2-completion" class="hidden mt-6 flex justify-between">
+                    <button id="back-to-step-1" class="bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-400 transition-colors duration-300">← Back</button>
+                    <button id="go-to-step-3-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300">Continue to Outline →</button>
+                </div>
+            </div>
+
+            <div id="step-3" class="hidden">
+                <h2 class="text-2xl font-semibold">Step 4: Create Your Outline</h2>
+                <p class="text-gray-600 mb-4">Here are your brainstormed ideas. Ask the AI to help you link them together with a strong thesis.</p>
+                <div class="border rounded-lg p-4 mb-4 bg-white">
+                    <h3 class="font-semibold mb-2">Your Core Ideas:</h3>
+                    <div id="user-ideas-display" class="space-y-2 text-sm"></div>
+                </div>
+                <div class="text-center my-6">
+                    <button id="generate-links-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-700 transition-colors duration-300 flex items-center justify-center disabled:opacity-50">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        <span class="btn-text">🤖 Generate Thesis & Transitions</span>
+                    </button>
+                </div>
+                <div id="linking-ideas-container" class="hidden">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">AI Suggestions (Editable)</label>
+                    <div id="linking-ideas-content" class="p-4 bg-white border rounded-md space-y-4"></div>
+                    <button id="debug-fill-outline" class="debug-btn text-xs text-blue-600 hover:underline">[Quick Fill]</button>
+                </div>
+                <div class="mt-6 flex justify-between">
+                    <button id="back-to-step-2" class="bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-400 transition-colors duration-300">← Back</button>
+                    <button id="go-to-step-4-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300">Write Your Draft →</button>
+                </div>
+            </div>
+
+            <div id="step-4" class="hidden">
+                <h2 class="text-2xl font-semibold">Step 5: Write & Refine Your Draft</h2>
+                <p class="text-gray-600 mb-4">Use your outline as a guide to write your draft below. When you're ready, use the AI tools to improve it.</p>
+                
+                <div class="mb-4 border bg-white rounded-lg">
+                    <h3 class="font-semibold cursor-pointer flex items-center p-3" onclick="toggleCollapsible(this)">
+                        <svg class="collapsible-arrow h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
+                        🧠 Show My Outline & Ideas
+                    </h3>
+                    <div id="outline-reference-content" class="hidden p-4 border-t text-sm"></div>
+                </div>
+
+                <!-- V3 Collapsible AI Tool Results -->
+                <div id="proofread-results-container" class="hidden mb-4 border bg-red-50 rounded-lg"></div>
+                <div id="paraphrase-results-container" class="hidden mb-4 border bg-teal-50 rounded-lg"></div>
+                <div id="tone-results-container" class="hidden mb-4 border bg-sky-50 rounded-lg"></div>
+                <div id="titles-results-container" class="hidden mb-4 border bg-green-50 rounded-lg"></div>
+                <div id="feedback-results-container" class="hidden mb-4 border bg-purple-50 rounded-lg"></div>
+                <div id="summary-results-container" class="hidden mb-4 border bg-orange-50 rounded-lg"></div>
+                <div id="word-count-results-container" class="hidden mb-4 border bg-blue-50 rounded-lg"></div>
+                <div id="fact-check-results-container" class="hidden mb-4 border bg-indigo-50 rounded-lg"></div>
+
+
+                <div>
+                    <label for="essay-title-input" class="block text-sm font-medium text-gray-700">Essay Title</label>
+                    <div class="flex justify-between items-center">
+                        <input type="text" id="essay-title-input" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Your essay title here...">
+                        <button id="debug-fill-draft" class="debug-btn text-xs text-blue-600 hover:underline ml-2">[Quick Fill]</button>
+                    </div>
+                </div>
+
+                <textarea id="draft-display" rows="15" class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-4" placeholder="Start writing your essay here..."></textarea>
+                <div id="word-count-display" class="text-sm text-right text-gray-600 mt-1">Word Count: 0</div>
+
+                <div class="my-4 p-4 border rounded-lg bg-white">
+                    <h3 class="font-semibold text-center mb-3">AI Co-Pilot Tools</h3>
+                    <div class="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center">
+                        
+                        <!-- New Text Selection Tools -->
+                        <div id="selection-tools" class="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center">
+                            <p class="text-sm text-gray-500 w-full text-center">Select text in your draft to use these tools:</p>
+                            <button id="proofread-btn" title="Check selection for grammar and spelling issues" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 flex items-center justify-center disabled:opacity-50 text-sm transition-colors duration-300" disabled>
+                                <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                <span class="btn-text">✅ Proofread Selection</span>
+                            </button>
+                            <button id="paraphrase-btn" title="Get alternative phrasing for the selected text" class="bg-teal-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-teal-700 flex items-center justify-center disabled:opacity-50 text-sm transition-colors duration-300" disabled>
+                                <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                <span class="btn-text">📚 Rephrase / Expand</span>
+                            </button>
+                            <button id="tune-tone-btn" title="Get suggestions to change the tone of the selected text" class="bg-sky-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-sky-700 flex items-center justify-center disabled:opacity-50 text-sm transition-colors duration-300" disabled>
+                                <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                <span class="btn-text">🎨 Tune Tone / Style</span>
+                            </button>
+                             <button id="fact-check-btn" title="Check a factual claim using Google Search" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 flex items-center justify-center disabled:opacity-50 text-sm transition-colors duration-300" disabled>
+                                <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                <span class="btn-text">🔍 Fact-Check Claim</span>
+                            </button>
+                        </div>
+                        
+                        <div id="tone-selector" class="hidden w-full flex flex-col items-center gap-2 my-2">
+                             <p class="text-sm font-semibold text-gray-700">Select a tone:</p>
+                             <div class="flex gap-2">
+                                <button data-tone="Formal" class="tone-option-btn bg-gray-200 text-gray-800 text-xs font-semibold py-1 px-3 rounded-full hover:bg-gray-300 transition-colors duration-300">Formal</button>
+                                <button data-tone="Persuasive" class="tone-option-btn bg-gray-200 text-gray-800 text-xs font-semibold py-1 px-3 rounded-full hover:bg-gray-300 transition-colors duration-300">Persuasive</button>
+                                <button data-tone="Casual" class="tone-option-btn bg-gray-200 text-gray-800 text-xs font-semibold py-1 px-3 rounded-full hover:bg-gray-300 transition-colors duration-300">Casual</button>
+                                <button data-tone="Simple" class="tone-option-btn bg-gray-200 text-gray-800 text-xs font-semibold py-1 px-3 rounded-full hover:bg-gray-300 transition-colors duration-300">Simple</button>
+                             </div>
+                        </div>
+
+                         <div class="border-t w-full my-2"></div>
+                        
+                        <!-- Existing Global Tools -->
+                        <button id="suggest-titles-btn" title="Suggest 5 creative titles for your essay" class="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 flex items-center justify-center disabled:opacity-50 text-sm transition-colors duration-300">
+                            <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            <span class="btn-text">✨ Suggest Titles</span>
+                        </button>
+                        <button id="refine-draft-btn" title="Get high-level feedback on your draft" class="bg-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-purple-700 flex items-center justify-center disabled:opacity-50 text-sm transition-colors duration-300">
+                            <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            <span class="btn-text">✍️ General Feedback</span>
+                        </button>
+                         <button id="summarize-btn" title="Generate a concise summary of your entire draft" class="bg-orange-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-700 flex items-center justify-center disabled:opacity-50 text-sm transition-colors duration-300">
+                            <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            <span class="btn-text">📜 Summarize Draft</span>
+                        </button>
+                        <button id="adjust-word-count-btn" title="Get suggestions to increase or decrease your word count" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 flex items-center justify-center text-sm transition-colors duration-300">
+                             <span class="btn-text">🎯 Adjust Word Count</span>
+                        </button>
+                        <div id="word-count-input-container" class="hidden flex gap-2 items-center justify-center">
+                            <input type="number" id="target-word-count-input" class="w-24 px-2 py-1 border border-gray-300 rounded-md text-sm" placeholder="e.g., 800">
+                            <button id="get-word-count-suggestions-btn" class="bg-blue-700 text-white font-bold py-1 px-3 rounded-lg hover:bg-blue-800 flex items-center justify-center disabled:opacity-50 text-sm transition-colors duration-300">
+                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                <span class="btn-text">Get Suggestions</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="my-4 flex flex-wrap gap-4 justify-center">
+                     <button id="copy-draft-btn" class="bg-gray-700 text-white font-bold py-2 px-5 rounded-lg hover:bg-gray-800 transition-colors duration-300">📋 Copy to Clipboard</button>
+                     <button id="download-draft-btn" class="bg-gray-700 text-white font-bold py-2 px-5 rounded-lg hover:bg-gray-800 transition-colors duration-300">💾 Download Draft</button>
+                     <button id="download-audit-btn" class="bg-gray-800 text-white font-bold py-2 px-5 rounded-lg hover:bg-gray-900 transition-colors duration-300">📑 Download with Audit Trail</button>
+                </div>
+
+                <div id="audit-trail" class="mt-8 border-t pt-4">
+                    <h3 class="text-xl font-semibold mb-2">📝 Audit Trail (Your Work)</h3>
+                    <div class="p-4 bg-white rounded-lg text-sm space-y-3 border">
+                        <div>
+                            <strong class="text-gray-900">Original Prompt:</strong>
+                            <p id="audit-prompt" class="whitespace-pre-wrap font-mono p-2 bg-gray-50 rounded border"></p>
+                        </div>
+                        <div>
+                            <strong class="text-gray-900">Your Brainstormed Ideas:</strong>
+                            <div id="audit-ideas" class="space-y-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-8 p-4 bg-blue-50 border border-blue-200 rounded-lg text-center">
+                    <h3 class="font-semibold text-lg text-blue-800 mb-2">Help Us Improve tapestrAI</h3>
+                    <p class="text-blue-700 text-sm mb-3">This is a living project and your feedback is important to help both you and tapestrAI develop.</p>
+                    <a href="https://forms.gle/j7mQ9jFB8MdxEozq6" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors">Submit Feedback</a>
+                </div>
+
+                <div class="mt-8 flex justify-between">
+                    <button id="back-to-step-3" class="bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-400 transition-colors duration-300">← Back</button>
+                    <button id="start-new-btn" class="bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition-colors duration-300">Start New Essay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center mt-8 pb-4">
+        <div id="global-api-status" class="flex justify-center items-center gap-2 text-xs text-gray-500 mb-2 hidden">
+            <div class="h-2 w-2 rounded-full"></div>
+            <span></span>
+        </div>
+        <p class="text-xs text-gray-500">
+            <strong>Author:</strong> D. Schwager | <strong>Contact:</strong> copilot@brewx.com | <a href="https://forms.gle/j7mQ9jFB8MdxEozq6" target="_blank" class="text-blue-600 hover:underline">Feedback</a> | <button id="open-eula-btn" class="text-blue-600 hover:underline">EULA</button>
+        </p>
+        <p class="text-xs text-gray-400 mt-1 flex items-center justify-center gap-4">
+            <span><strong>Copyright Notice:</strong> © <span id="copyright-year">2025</span> D. Schwager / BrewX All rights reserved.</span>
+            <button id="save-session-btn" class="bg-gray-200 text-gray-600 font-bold py-1 px-3 rounded-lg hover:bg-gray-300 text-xs transition-colors duration-300">Save Session</button>
+        </p>
+    </footer>
+
+    <!-- EULA Modal -->
+    <div id="eula-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
+            <button id="close-eula-btn" class="absolute top-2 right-3 text-2xl text-gray-500 hover:text-gray-800">&times;</button>
+            <h2 class="text-xl font-bold mb-4 font-lora">tapestrAI copilot™ - End-User License Agreement (EULA)</h2>
+            <p class="text-sm font-semibold">Copyright © 2025 David Schwager / BrewX. All Rights Reserved.</p>
+            <p class="text-xs text-gray-500 mb-4">Effective Date: October 6, 2025</p>
+
+            <div class="space-y-4 text-sm text-gray-700">
+                <div>
+                    <h3 class="font-bold text-lg mb-2">SUMMARY</h3>
+                    <p>This is a simple license that allows you to use, copy, and share the tapestrAI copilot™ tool for free for personal and educational use. It protects this work by prohibiting modification, reverse-engineering, and commercial use without explicit permission. By using this software, you agree to the full terms outlined below.</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-2">PERMISSIONS</h3>
+                    <p class="font-semibold mb-1">You ARE ALLOWED to:</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><strong>Use:</strong> Use the software for your personal, non-commercial, and educational purposes (e.g., writing school essays, personal projects).</li>
+                        <li><strong>Share:</strong> Share the original, unmodified HTML file with other students, friends, and educators so they can benefit from it as well.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-2">RESTRICTIONS</h3>
+                    <p class="font-semibold mb-1">You are NOT ALLOWED to:</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><strong>Commercial Use:</strong> Sell, rent, lease, sublicense, or otherwise charge money for the software or use it for any commercial purpose.</li>
+                        <li><strong>Modify and Reverse-Engineer:</strong> Modify, translate, decompile, disassemble, or reverse-engineer the software's source code.</li>
+                        <li><strong>Rebrand:</strong> Remove or alter any copyright, trademark (™), or other proprietary notices contained within the software.</li>
+                        <li><strong>Compete:</strong> Use the software, its code, or its concepts to create a product or service that competes with tapestrAI copilot™.</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-lg mb-2">DISCLAIMER OF WARRANTY</h3>
+                    <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-2">LIMITATION OF LIABILITY</h3>
+                    <p>IN NO EVENT SHALL THE AUTHOR OR COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                </div>
+
+                 <div>
+                    <h3 class="font-bold text-lg mb-2">GOVERNING LAW</h3>
+                    <p>This agreement shall be governed by and construed in accordance with the laws of the State of Texas, United States.</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-2">CONTACT</h3>
+                    <p>For any uses not granted by this license, including institutional or commercial licensing, please contact: <a href="mailto:copilot@brewx.com" class="text-blue-600 hover:underline">copilot@brewx.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // =================================================================================
+        // SCRIPT STRUCTURE
+        // ---------------------------------------------------------------------------------
+        // 1. GLOBAL STATE & CONSTANTS
+        // 2. ELEMENT SELECTORS
+        // 3. INITIALIZATION & LANDING PAGE LOGIC
+        // 4. DEBUG FUNCTIONALITY
+        // 5. CORE APP NAVIGATION & EVENT LISTENERS
+        // 6. UI HELPER FUNCTIONS
+        // 7. API COMMUNICATION & CORE LOGIC
+        // =================================================================================
+
+        // ---------------------------------------------------------------------------------
+        // 1. GLOBAL STATE & CONSTANTS
+        // ---------------------------------------------------------------------------------
+        const DEBUG_MODE = true;
+        let currentDebugScenario = {};
+        const debugScenarios = [
+            {
+                title: "The Renaissance Engine",
+                prompt: 'Discuss the impact of the printing press on the European Renaissance.',
+                wordCount: 800,
+                ideas: [
+                    `The printing press democratized knowledge by making books cheap and accessible, breaking the monopoly on information held by the clergy and nobility.`,
+                    `It was a primary catalyst for the Protestant Reformation, as it allowed Martin Luther's critiques of the Catholic Church to spread rapidly throughout Europe.`,
+                    `It accelerated the Scientific Revolution by allowing scientists to share, verify, and build upon each other's work through standardized, widely distributed texts and diagrams.`
+                ],
+                outline: `**Connecting Theme:** The printing press acted as a catalyst for intellectual and cultural transformation during the Renaissance by accelerating the dissemination of information.\n\n**Idea Connections:**\n1. Tie-in for Democratization of Knowledge: Contrast the pre-printing press era of scarce information with the new age of accessible knowledge.\n2. Tie-in for Religious Change: Connect the spread of knowledge directly to challenges against established religious authority.\n3. Tie-in for Scientific Advancement: Explain how shared texts allowed scientists to build upon each other's work.`,
+                draft: `The European Renaissance was a period of immense cultural and intellectual rebirth, but its rapid progression would have been unimaginable without the invention of the printing press. This technology was not merely a new way to create books; it was a revolutionary force that fundamentally democratized knowledge, challenged established power structures, and laid the groundwork for the modern age of information.\n\nPrior to the mid-15th century, knowledge was a scarce commodity. The printing press shattered this paradigm, making books cheap and accessible and breaking the monopoly on information held by the clergy and nobility. Suddenly, texts from classical antiquity, scientific treatises, and new philosophical ideas could be reproduced in vast quantities, empowering a growing merchant and middle class.\n\nThis newfound access to information had profound consequences, particularly in religion. It was a primary catalyst for the Protestant Reformation, as it allowed Martin Luther's critiques of the Catholic Church to spread with unprecedented speed throughout Europe. For the first time, individuals could own and interpret the Bible for themselves, bypassing the singular authority of the Church and giving a powerful voice to dissent.\n\nFurthermore, the printing press was a critical engine for the Scientific Revolution. It accelerated progress by allowing scientists to share, verify, and build upon each other's work through standardized, widely distributed texts and diagrams. Scholars like Copernicus and Vesalius could disseminate their findings to a wide audience, creating a collaborative intellectual network that transformed knowledge from a static treasure to be guarded into a dynamic force to be shared and expanded upon.`
+            },
+        ];
+        let essayData = { apiKey: '', title: '', prompt: '', wordCount: null, totalIdeas: 3, userIdeas: [], allQuestions: [], linkingText: '', finalDraft: '', currentStep: 1, workflow: 'full', eventLog: [] };
+        
+        // ---------------------------------------------------------------------------------
+        // 2. ELEMENT SELECTORS
+        // ---------------------------------------------------------------------------------
+        const landingPage = document.getElementById('landing-page');
+        const mainAppContainer = document.getElementById('main-app-container');
+        const launchAppBtn = document.getElementById('launch-app-btn');
+        const step1 = document.getElementById('step-1'), step2 = document.getElementById('step-2'), step3 = document.getElementById('step-3'), step4 = document.getElementById('step-4');
+        const apiKeyInput = document.getElementById('api-key-input'), promptInput = document.getElementById('prompt-input'), wordCountInput = document.getElementById('word-count-input'), apiKeyStatus = document.getElementById('api-key-status');
+        const testKeyBtn = document.getElementById('test-key-btn');
+        const toggleApiKeyBtn = document.getElementById('toggle-api-key-btn');
+        const eyeOpen = document.getElementById('eye-open'), eyeClosed = document.getElementById('eye-closed');
+        const forgetKeyBtn = document.getElementById('forget-key-btn');
+        const loadSessionBtn = document.getElementById('load-session-btn'), loadSessionInput = document.getElementById('load-session-input');
+        const startBtn = document.getElementById('start-btn');
+        const brainstormActive = document.getElementById('brainstorm-active'), progressIndicator = document.getElementById('progress-indicator'), questionDisplay = document.getElementById('question-display'), skipQuestionBtn = document.getElementById('skip-question-btn'), answerInput = document.getElementById('answer-input'), saveAnswerBtn = document.getElementById('save-answer-btn'), savedAnswersContainer = document.getElementById('saved-answers-container'), savedAnswersDisplay = document.getElementById('saved-answers-display'), step2Completion = document.getElementById('step-2-completion');
+        const backToStep1Btn = document.getElementById('back-to-step-1'), goToStep3Btn = document.getElementById('go-to-step-3-btn');
+        const userIdeasDisplay = document.getElementById('user-ideas-display'), generateLinksBtn = document.getElementById('generate-links-btn'), linkingIdeasContainer = document.getElementById('linking-ideas-container'), linkingIdeasContent = document.getElementById('linking-ideas-content');
+        const backToStep2Btn = document.getElementById('back-to-step-2'), goToStep4Btn = document.getElementById('go-to-step-4-btn');
+        const outlineReferenceContent = document.getElementById('outline-reference-content'), essayTitleInput = document.getElementById('essay-title-input'), draftDisplay = document.getElementById('draft-display');
+        
+        const suggestTitlesBtn = document.getElementById('suggest-titles-btn'), refineDraftBtn = document.getElementById('refine-draft-btn');
+        const adjustWordCountBtn = document.getElementById('adjust-word-count-btn'), wordCountInputContainer = document.getElementById('word-count-input-container'), targetWordCountInput = document.getElementById('target-word-count-input'), getWordCountSuggestionsBtn = document.getElementById('get-word-count-suggestions-btn');
+        const copyDraftBtn = document.getElementById('copy-draft-btn'), downloadDraftBtn = document.getElementById('download-draft-btn'), downloadAuditBtn = document.getElementById('download-audit-btn'), auditPrompt = document.getElementById('audit-prompt'), auditIdeas = document.getElementById('audit-ideas');
+        const backToStep3Btn = document.getElementById('back-to-step-3'), startNewBtn = document.getElementById('start-new-btn'), saveSessionBtn = document.getElementById('save-session-btn');
+        const debugFillPromptBtn = document.getElementById('debug-fill-prompt'), debugFillAnswerBtn = document.getElementById('debug-fill-answer'), debugFillOutlineBtn = document.getElementById('debug-fill-outline'), debugFillDraftBtn = document.getElementById('debug-fill-draft'), debugFillImportBtn = document.getElementById('debug-fill-import');
+        const skipToDraftBtn = document.getElementById('skip-to-draft-btn');
+        const importDraftInput = document.getElementById('import-draft-input'), refineDraftNowBtn = document.getElementById('refine-draft-now-btn');
+        const globalApiStatus = document.getElementById('global-api-status');
+        // V3 SELECTORS
+        const paraphraseBtn = document.getElementById('paraphrase-btn');
+        const tuneToneBtn = document.getElementById('tune-tone-btn');
+        const toneSelector = document.getElementById('tone-selector');
+        const summarizeBtn = document.getElementById('summarize-btn');
+        const proofreadBtn = document.getElementById('proofread-btn');
+        const factCheckBtn = document.getElementById('fact-check-btn');
+        const fontSelector = document.getElementById('font-selector');
+        const eulaModal = document.getElementById('eula-modal');
+        const openEulaBtn = document.getElementById('open-eula-btn');
+        const closeEulaBtn = document.getElementById('close-eula-btn');
+        const brainstormTopic = document.getElementById('brainstorm-topic');
+
+        const resultContainers = {
+            proofread: document.getElementById('proofread-results-container'),
+            paraphrase: document.getElementById('paraphrase-results-container'),
+            tone: document.getElementById('tone-results-container'),
+            titles: document.getElementById('titles-results-container'),
+            feedback: document.getElementById('feedback-results-container'),
+            summary: document.getElementById('summary-results-container'),
+            wordCount: document.getElementById('word-count-results-container'),
+            factCheck: document.getElementById('fact-check-results-container'),
+        }
+
+
+        // ---------------------------------------------------------------------------------
+        // 3. INITIALIZATION & LANDING PAGE LOGIC
+        // ---------------------------------------------------------------------------------
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedKey = localStorage.getItem('geminiApiKey');
+            if (savedKey) { 
+                apiKeyInput.value = savedKey; 
+                forgetKeyBtn.classList.remove('hidden');
+                testKeyBtn.click(); // Auto-test saved key, which will enable launch button
+            }
+            if(DEBUG_MODE){ document.querySelectorAll('.debug-btn').forEach(btn => btn.style.display = 'inline'); }
+            
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+            loadSavedFont();
+        });
+
+        launchAppBtn.addEventListener('click', () => {
+            const apiKey = apiKeyInput.value.trim();
+            if(!apiKey){
+                // This is a failsafe, but the button should be disabled anyway.
+                const tempTooltip = launchAppBtn.title;
+                launchAppBtn.title = "Please enter and test your API key first.";
+                setTimeout(() => { launchAppBtn.title = tempTooltip; }, 2000);
+                return;
+            }
+            essayData.apiKey = apiKey;
+            localStorage.setItem('geminiApiKey', apiKey);
+            forgetKeyBtn.classList.remove('hidden');
+
+            logEvent('APP_LAUNCH');
+            landingPage.classList.add('hidden');
+            mainAppContainer.classList.remove('hidden');
+        });
+
+        toggleApiKeyBtn.addEventListener('click', () => {
+            if (apiKeyInput.type === 'password') {
+                apiKeyInput.type = 'text';
+                eyeOpen.classList.add('hidden');
+                eyeClosed.classList.remove('hidden');
+            } else {
+                apiKeyInput.type = 'password';
+                eyeOpen.classList.remove('hidden');
+                eyeClosed.add('hidden');
+            }
+        });
+
+        fontSelector.addEventListener('change', (e) => applyFont(e.target.value));
+        openEulaBtn.addEventListener('click', () => eulaModal.classList.remove('hidden'));
+        closeEulaBtn.addEventListener('click', () => eulaModal.classList.add('hidden'));
+        eulaModal.addEventListener('click', (e) => {
+            if (e.target === eulaModal) {
+                 eulaModal.classList.add('hidden');
+            }
+        });
+        
+        // ---------------------------------------------------------------------------------
+        // 4. DEBUG FUNCTIONALITY
+        // ---------------------------------------------------------------------------------
+        function selectDebugScenario() {
+             currentDebugScenario = debugScenarios[Math.floor(Math.random() * debugScenarios.length)];
+        }
+        debugFillPromptBtn.addEventListener('click', () => { 
+            selectDebugScenario();
+            promptInput.value = currentDebugScenario.prompt; 
+            wordCountInput.value = currentDebugScenario.wordCount; 
+        });
+        debugFillAnswerBtn.addEventListener('click', () => { 
+            if (!currentDebugScenario.prompt) selectDebugScenario();
+            const ideaIndex = essayData.userIdeas.length;
+            answerInput.value = currentDebugScenario.ideas[ideaIndex] || "This is a placeholder answer as the scenario does not have enough ideas.";
+        });
+        debugFillOutlineBtn.addEventListener('click', () => { 
+            if (!currentDebugScenario.prompt) selectDebugScenario();
+            linkingIdeasContent.innerHTML = formatOutlineSuggestions(currentDebugScenario.outline); 
+        });
+        debugFillDraftBtn.addEventListener('click', () => { 
+            if (!currentDebugScenario.prompt) selectDebugScenario();
+            essayTitleInput.value = currentDebugScenario.title;
+            draftDisplay.value = currentDebugScenario.draft; 
+            draftDisplay.dispatchEvent(new Event('input')); 
+        });
+        debugFillImportBtn.addEventListener('click', () => {
+             selectDebugScenario();
+             promptInput.value = currentDebugScenario.prompt; 
+             importDraftInput.value = currentDebugScenario.draft;
+        });
+
+        // ---------------------------------------------------------------------------------
+        // 5. CORE APP NAVIGATION & EVENT LISTENERS
+        // ---------------------------------------------------------------------------------
+        testKeyBtn.addEventListener('click', async () => {
+            const key = apiKeyInput.value.trim();
+            if (!key) {
+                apiKeyStatus.innerHTML = `<span class="text-red-600">Please enter a key first.</span>`;
+                updateGlobalApiStatus(false);
+                launchAppBtn.disabled = true;
+                return;
+            }
+            apiKeyStatus.innerHTML = `<span class="text-gray-600">Testing...</span>`;
+            try {
+                const testPrompt = 'Say "hello".';
+                await callGeminiAPI(testPrompt, false, key); 
+                apiKeyStatus.innerHTML = `<span class="text-green-600 font-semibold">✔ Key is valid! You can now launch the copilot.</span>`;
+                updateGlobalApiStatus(true);
+                launchAppBtn.disabled = false;
+                logEvent('API_KEY_TEST_SUCCESS');
+            } catch (error) {
+                apiKeyStatus.innerHTML = `<span class="text-red-600">✖ Key is invalid or has a problem.</span>`;
+                updateGlobalApiStatus(false);
+                launchAppBtn.disabled = true;
+                console.error("API Key Test Error:", error);
+                logEvent('API_KEY_TEST_FAIL', { error: error.message });
+            }
+        });
+        
+        startBtn.addEventListener('click', async () => {
+            const prompt = promptInput.value.trim();
+            const wordCount = wordCountInput.value ? parseInt(wordCountInput.value, 10) : null;
+            if (!prompt) return alert('Please provide an essay prompt.');
+            
+            essayData.prompt = prompt; 
+            brainstormTopic.textContent = prompt;
+            essayData.workflow = 'full';
+            essayData.wordCount = (!isNaN(wordCount) && wordCount > 0) ? wordCount : null;
+            essayData.totalIdeas = (essayData.wordCount && essayData.wordCount >= 750) ? 5 : 3;
+            essayData.userIdeas = []; 
+            essayData.allQuestions = []; 
+            savedAnswersDisplay.innerHTML = ''; 
+            savedAnswersContainer.classList.add('hidden'); 
+            brainstormActive.classList.remove('hidden'); 
+            step2Completion.classList.add('hidden');
+            logEvent('START_ESSAY_SCRATCH', { prompt: essayData.prompt, wordCount: essayData.wordCount });
+            
+            await runAPITask(async () => { await generateBrainstormQuestion(); updateStep2UI(); showStep(2); }, startBtn);
+        });
+         refineDraftNowBtn.addEventListener('click', async () => {
+            const prompt = promptInput.value.trim(), draft = importDraftInput.value.trim();
+            if (!prompt) return alert('Please provide an essay prompt.');
+            if (!draft) return alert('Please paste your draft before refining.');
+            
+            essayData.prompt = prompt;
+            essayData.finalDraft = draft;
+            essayData.workflow = 'import';
+            essayData.userIdeas = ['Draft was imported.'];
+            essayData.linkingText = 'Outline was not generated for imported draft.';
+            logEvent('START_ESSAY_IMPORT', { prompt: essayData.prompt, draftLength: draft.length });
+            
+            populateAuditTrail();
+            populateOutlineReference();
+            draftDisplay.value = essayData.finalDraft;
+            draftDisplay.dispatchEvent(new Event('input'));
+            showStep(4);
+        });
+        saveAnswerBtn.addEventListener('click', async () => {
+            const answer = answerInput.value.trim(); if (!answer) return alert('Please provide an answer before saving.');
+            essayData.userIdeas.push(answer); 
+            logEvent('SAVE_IDEA', { ideaNumber: essayData.userIdeas.length, idea: answer });
+            answerInput.value = ''; 
+            savedAnswersContainer.classList.remove('hidden');
+            const answerElement = document.createElement('div');
+            answerElement.className = 'p-2 bg-blue-50 border-l-4 border-blue-500';
+            answerElement.textContent = `Idea #${essayData.userIdeas.length}: ${answer.substring(0, 100)}...`;
+            savedAnswersDisplay.appendChild(answerElement);
+            if (essayData.userIdeas.length >= essayData.totalIdeas) {
+                brainstormActive.classList.add('hidden'); step2Completion.classList.remove('hidden');
+                progressIndicator.textContent = `Brainstorming Complete! You have ${essayData.totalIdeas} core ideas.`;
+            } else { 
+                await runAPITask(async () => { 
+                    questionDisplay.textContent = 'Generating next question...';
+                    await generateBrainstormQuestion(); 
+                    updateStep2UI(); 
+                }, saveAnswerBtn); 
+            }
+        });
+        skipQuestionBtn.addEventListener('click', async () => {
+            logEvent('NEW_QUESTION');
+            await runAPITask(async () => { await generateBrainstormQuestion(true); updateStep2UI(); }, skipQuestionBtn)
+        });
+        skipToDraftBtn.addEventListener('click', () => {
+            essayData.userIdeas = [];
+            essayData.linkingText = "Brainstorming and outlining steps were skipped.";
+            logEvent('SKIP_TO_DRAFT');
+            goToStep4Btn.click();
+        });
+        generateLinksBtn.addEventListener('click', async () => {
+            logEvent('GENERATE_OUTLINE');
+            await runAPITask(async () => { 
+                const outlineSuggestions = await generateLinkingIdeas(); 
+                essayData.linkingText = outlineSuggestions;
+                linkingIdeasContent.innerHTML = formatOutlineSuggestions(outlineSuggestions);
+                linkingIdeasContainer.classList.remove('hidden'); 
+            }, generateLinksBtn)
+        });
+        goToStep3Btn.addEventListener('click', () => { 
+            logEvent('NAVIGATE_TO_STEP_3');
+            showStep(3); 
+            userIdeasDisplay.innerHTML = ''; 
+            essayData.userIdeas.forEach((idea, i) => { const el = document.createElement('p'); el.className = 'p-2 suggestion-item'; el.innerHTML = `<strong class="text-gray-900">Idea #${i + 1}:</strong> ${idea}`; userIdeasDisplay.appendChild(el); }); 
+        });
+        goToStep4Btn.addEventListener('click', () => {
+            logEvent('NAVIGATE_TO_STEP_4');
+            populateOutlineReference(); populateAuditTrail();
+            showStep(4);
+        });
+        draftDisplay.addEventListener('input', () => {
+            const text = draftDisplay.value;
+            essayData.finalDraft = text;
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            
+            // FIX: Find the word count display element dynamically each time.
+            const currentWordCountDisplay = document.getElementById('word-count-display');
+            if (currentWordCountDisplay) {
+                let countText = `Word Count: ${words.length}`;
+                if (essayData.wordCount) {
+                    countText += ` / ${essayData.wordCount}`;
+                }
+                currentWordCountDisplay.textContent = countText;
+            }
+        });
+        draftDisplay.addEventListener('mouseup', () => {
+            const selectedText = draftDisplay.value.substring(draftDisplay.selectionStart, draftDisplay.selectionEnd);
+            const hasSelection = selectedText.length > 0;
+            proofreadBtn.disabled = !hasSelection;
+            paraphraseBtn.disabled = !hasSelection;
+            tuneToneBtn.disabled = !hasSelection;
+            factCheckBtn.disabled = !hasSelection;
+            if(!hasSelection) toneSelector.classList.add('hidden');
+        });
+
+        // V3 LISTENERS
+        proofreadBtn.addEventListener('click', async () => {
+            const selectedText = draftDisplay.value.substring(draftDisplay.selectionStart, draftDisplay.selectionEnd);
+            if (selectedText.length < 3) return alert('Please select more text to proofread.');
+            
+            await runAPITask(async () => {
+                const suggestions = await getProofreadSuggestions(selectedText);
+                logEvent('GET_PROOFREAD_SUGGESTIONS', { text: selectedText, suggestions });
+                displayProofreadSuggestions(suggestions);
+            }, proofreadBtn);
+        });
+
+        paraphraseBtn.addEventListener('click', async () => {
+            const selectedText = draftDisplay.value.substring(draftDisplay.selectionStart, draftDisplay.selectionEnd);
+            if (selectedText.length < 10) return alert('Please select a longer sentence to rephrase.');
+            
+            await runAPITask(async () => {
+                const suggestions = await getParaphraseSuggestions(selectedText);
+                 logEvent('GET_PARAPHRASE_SUGGESTIONS', { text: selectedText, suggestions });
+                displayExplainedSuggestions('paraphrase', '📚 Rephrase / Expand Suggestions', selectedText, suggestions);
+            }, paraphraseBtn);
+        });
+        
+        factCheckBtn.addEventListener('click', async () => {
+            const selectedText = draftDisplay.value.substring(draftDisplay.selectionStart, draftDisplay.selectionEnd);
+            if (selectedText.length < 10) return alert('Please select a factual claim to check.');
+            
+            await runAPITask(async () => {
+                const result = await getFactCheck(selectedText);
+                logEvent('GET_FACT_CHECK', { text: selectedText, result });
+                displayFactCheckResults(selectedText, result);
+            }, factCheckBtn);
+        });
+
+        tuneToneBtn.addEventListener('click', () => {
+            toneSelector.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.tone-option-btn').forEach(button => {
+            button.addEventListener('click', async () => {
+                const selectedText = draftDisplay.value.substring(draftDisplay.selectionStart, draftDisplay.selectionEnd);
+                const tone = button.dataset.tone;
+                if (selectedText.length < 10) return alert('Please select a longer sentence to tune.');
+                
+                await runAPITask(async () => {
+                    const suggestions = await getToneSuggestions(selectedText, tone);
+                    logEvent('GET_TONE_SUGGESTIONS', { text: selectedText, tone, suggestions });
+                    displaySuggestionsInContainer('tone', `🎨 Suggestions for a More "${tone}" Tone`, suggestions);
+                    toneSelector.classList.add('hidden');
+                }, tuneToneBtn);
+            });
+        });
+        
+        summarizeBtn.addEventListener('click', async () => {
+            if (draftDisplay.value.length < 100) return alert('Please write a bit more before summarizing.');
+            
+            await runAPITask(async () => {
+                const summary = await getSummary();
+                logEvent('GET_SUMMARY', { summary });
+                displaySuggestionsInContainer('summary', '📜 Summarize Draft', [summary]);
+            }, summarizeBtn);
+        });
+
+        suggestTitlesBtn.addEventListener('click', async () => {
+            if (draftDisplay.value.length < 50) return alert('Please write a bit more before suggesting titles.');
+            
+            await runAPITask(async () => {
+                const suggestions = await getTitleSuggestions();
+                logEvent('GET_TITLE_SUGGESTIONS', { suggestions });
+                displaySuggestionsInContainer('titles', '✨ Title Suggestions', suggestions);
+            }, suggestTitlesBtn);
+        });
+        refineDraftBtn.addEventListener('click', async () => { 
+            if(draftDisplay.value.length < 20) return alert('Please write a bit more before refining.'); 
+            
+            await runAPITask(async () => { 
+                const result = await getRefinementSuggestions();
+                logEvent('GET_REFINEMENT_SUGGESTIONS', { result });
+                displaySuggestionsInContainer('feedback', '✍️ General Feedback', [result.positiveFeedback, ...result.suggestions, result.closingStatement]);
+            }, refineDraftBtn); 
+        });
+        adjustWordCountBtn.addEventListener('click', () => {
+            wordCountInputContainer.classList.toggle('hidden');
+        });
+        getWordCountSuggestionsBtn.addEventListener('click', async () => {
+            const target = parseInt(targetWordCountInput.value, 10);
+            if (isNaN(target) || target <= 0) return alert('Please enter a valid target word count.');
+             if(draftDisplay.value.length < 20) return alert('Please write a bit more before getting suggestions.'); 
+            
+            await runAPITask(async () => {
+                const suggestions = await getWordCountSuggestions(target);
+                logEvent('GET_WORD_COUNT_SUGGESTIONS', { target, suggestions });
+                displaySuggestionsInContainer('wordCount', `🎯 Suggestions for reaching ~${target} words`, suggestions);
+            }, getWordCountSuggestionsBtn);
+        });
+        copyDraftBtn.addEventListener('click', () => {
+            logEvent('COPY_DRAFT');
+            const originalText = copyDraftBtn.innerHTML;
+            navigator.clipboard.writeText(draftDisplay.value).then(() => {
+                copyDraftBtn.innerHTML = '✅ Copied!';
+                setTimeout(() => {
+                    copyDraftBtn.innerHTML = originalText;
+                }, 2000);
+            });
+        });
+        
+        downloadDraftBtn.addEventListener('click', () => { 
+            logEvent('DOWNLOAD_DRAFT');
+            const filename = getDownloadFilename() + '.txt';
+            const blob = new Blob([draftDisplay.value], { type: 'text/plain' }); 
+            const url = URL.createObjectURL(blob); 
+            const a = document.createElement('a'); 
+            a.href = url; 
+            a.download = filename; 
+            a.click(); 
+            URL.revokeObjectURL(url); 
+        });
+
+        downloadAuditBtn.addEventListener('click', () => {
+            logEvent('DOWNLOAD_AUDIT');
+            const filename = getDownloadFilename() + '_with_audit_trail.txt';
+            let fullText = `ESSAY DRAFT\n---------------------------------\n\n`;
+            if (essayTitleInput.value.trim()) {
+                fullText += `Title: ${essayTitleInput.value.trim()}\n\n`;
+            }
+            fullText += `${essayData.finalDraft}\n\n\n`;
+            fullText += `=================================\n`;
+            fullText += `AUDIT TRAIL & EVENT LOG\n`;
+            fullText += `=================================\n\n`;
+            fullText += `ORIGINAL PROMPT:\n---------------------------------\n${essayData.prompt}\n\n`;
+            if (essayData.workflow === 'full') {
+                fullText += `USER'S BRAINSTORMED IDEAS:\n---------------------------------\n`;
+                essayData.userIdeas.forEach((idea, i) => {
+                    fullText += `\n[AI Question #${i+1}: ${essayData.allQuestions[i] || 'N/A'}]\n\n`;
+                    fullText += `User Answer #${i+1}:\n${idea}\n`;
+                });
+                fullText += `\n\nUSER'S FINAL OUTLINE:\n---------------------------------\n${JSON.stringify(essayData.linkingText, null, 2)}\n`;
+            } else {
+                fullText += `WORKFLOW:\n---------------------------------\nDraft was imported directly for refinement.\n`;
+            }
+            
+            fullText += `\n\nEVENT LOG:\n---------------------------------\n`;
+            essayData.eventLog.forEach(event => {
+                fullText += `\n[${event.timestamp}] ${event.action}`;
+                if (event.data && Object.keys(event.data).length > 0) {
+                     fullText += `\n   Data: ${JSON.stringify(event.data, null, 2)}`;
+                }
+                fullText += `\n`;
+            });
+
+
+            const blob = new Blob([fullText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+        
+        saveSessionBtn.addEventListener('click', () => {
+            try {
+                essayData.title = essayTitleInput.value;
+                essayData.finalDraft = draftDisplay.value;
+                logEvent('SAVE_SESSION');
+
+                const sessionObject = {
+                    file_signature: "TAPESTRAI_SESSION_V1",
+                    version: "1.0",
+                    data: essayData
+                };
+                const sessionData = JSON.stringify(sessionObject);
+                const blob = new Blob([sessionData], {type: 'application/json'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                const filename = getDownloadFilename() || 'tapestrAI_session';
+                a.href = url;
+                a.download = `${filename}.tapestrAI`;
+                a.click();
+                URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error("Error saving session:", error);
+                alert("Could not save the session. Please check the console for errors.");
+            }
+        });
+
+        loadSessionBtn.addEventListener('click', () => loadSessionInput.click());
+        loadSessionInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    if (parsed.file_signature !== "TAPESTRAI_SESSION_V1") {
+                        throw new Error("Invalid or corrupted session file.");
+                    }
+                    Object.assign(essayData, parsed.data);
+                    
+                    apiKeyInput.value = essayData.apiKey;
+                    promptInput.value = essayData.prompt;
+                    wordCountInput.value = essayData.wordCount;
+                    essayTitleInput.value = essayData.title;
+                    draftDisplay.value = essayData.finalDraft;
+                    
+                    if(essayData.linkingText) {
+                        linkingIdeasContent.innerHTML = formatOutlineSuggestions(essayData.linkingText);
+                    }
+
+
+                    savedAnswersDisplay.innerHTML = '';
+                    essayData.userIdeas.forEach((idea, i) => {
+                         const answerElement = document.createElement('div');
+                         answerElement.className = 'p-2 bg-blue-50 border-l-4 border-blue-500';
+                         answerElement.textContent = `Idea #${i + 1}: ${idea.substring(0, 100)}...`;
+                         savedAnswersDisplay.appendChild(answerElement);
+                    });
+                    if(essayData.userIdeas.length > 0) savedAnswersContainer.classList.remove('hidden');
+
+                    logEvent('LOAD_SESSION');
+                    alert("Session loaded successfully!");
+                    
+                    landingPage.classList.add('hidden');
+                    mainAppContainer.classList.remove('hidden');
+                    const step = essayData.currentStep || 1;
+                    showStep(step);
+                    if (step >= 3) {
+                         userIdeasDisplay.innerHTML = ''; 
+                         essayData.userIdeas.forEach((idea, i) => { 
+                             const el = document.createElement('p'); 
+                             el.className = 'p-2 suggestion-item';
+                             el.innerHTML = `<strong class="text-gray-900">Idea #${i + 1}:</strong> ${idea}`; 
+                             userIdeasDisplay.appendChild(el); 
+                         });
+                    }
+                     if (step === 4) {
+                         populateOutlineReference();
+                         populateAuditTrail();
+                    }
+
+                } catch (error) {
+                    console.error("Failed to load session:", error);
+                    alert("Invalid file. Please select a valid .tapestrAI session file.");
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = ''; 
+        });
+
+        forgetKeyBtn.addEventListener('click', () => { 
+            logEvent('FORGET_API_KEY');
+            localStorage.removeItem('geminiApiKey'); 
+            apiKeyInput.value = ''; 
+            forgetKeyBtn.classList.add('hidden'); 
+            apiKeyStatus.innerHTML = ''; 
+            updateGlobalApiStatus(null);
+            launchAppBtn.disabled = true;
+        });
+        backToStep1Btn.addEventListener('click', () => { logEvent('NAVIGATE_TO_STEP_1'); location.reload(); });
+        startNewBtn.addEventListener('click', () => { logEvent('START_NEW_ESSAY'); location.reload(); });
+        backToStep2Btn.addEventListener('click', () => { logEvent('NAVIGATE_TO_STEP_2'); showStep(2); });
+        backToStep3Btn.addEventListener('click', () => { logEvent('NAVIGATE_TO_STEP_3'); showStep(3); });
+        
+        // ---------------------------------------------------------------------------------
+        // 6. UI HELPER FUNCTIONS
+        // ---------------------------------------------------------------------------------
+        function applyFont(font) {
+            const appContainer = document.getElementById('app');
+            if (appContainer) {
+                appContainer.classList.remove('font-default', 'font-verdana', 'font-opendyslexic');
+                const fontClass = `font-${font}`;
+                appContainer.classList.add(fontClass);
+            }
+            localStorage.setItem('tapestrAIFont', font);
+            fontSelector.value = font;
+        }
+
+        function loadSavedFont() {
+            const savedFont = localStorage.getItem('tapestrAIFont') || 'default';
+            applyFont(savedFont);
+        }
+
+        function logEvent(action, data = {}) {
+            const event = {
+                timestamp: new Date().toISOString(),
+                action,
+                data
+            };
+            essayData.eventLog.push(event);
+            console.log('Logged Event:', event);
+        }
+        function showStep(stepNum) { 
+            essayData.currentStep = stepNum;
+            const steps = [step1, step2, step3, step4];
+            steps.forEach((s, i) => {
+                if (i + 1 === stepNum) {
+                    s.classList.remove('hidden');
+                } else {
+                    s.classList.add('hidden');
+                }
+            });
+            document.getElementById('global-controls').style.display = (stepNum > 1) ? 'flex' : 'none';
+        }
+
+        function updateStep2UI() { 
+            const currentQuestion = essayData.allQuestions[essayData.allQuestions.length - 1];
+            questionDisplay.textContent = currentQuestion; 
+            const currentIdeaNum = essayData.userIdeas.length + 1; 
+            progressIndicator.textContent = `Idea ${currentIdeaNum} of ${essayData.totalIdeas}`; 
+        }
+        function populateAuditTrail() { auditPrompt.textContent = essayData.prompt; auditIdeas.innerHTML = ''; essayData.userIdeas.forEach((idea, i) => { const el = document.createElement('div'); el.className = 'p-2 mt-1 bg-white rounded border font-mono'; el.textContent = `Idea #${i + 1}: ${idea}`; auditIdeas.appendChild(el); }); }
+        
+        function formatOutlineSuggestions(outlineData) {
+            if (!outlineData || typeof outlineData !== 'object') {
+                return '';
+            }
+
+            let html = '';
+            
+            if (outlineData.connectingTheme) {
+                html += `<div class="suggestion-item p-2"><p><strong class="text-slate-700">💭💡 Connecting Theme:</strong> ${outlineData.connectingTheme}</p></div>`;
+            }
+
+            if (outlineData.ideaConnections && Array.isArray(outlineData.ideaConnections)) {
+                html += '<div class="mt-4"><p class="font-semibold text-slate-700 mb-2">🔀 Idea Connections:</p><div class="pl-4 space-y-4">';
+                outlineData.ideaConnections.forEach(conn => {
+                    html += `
+                        <div class="suggestion-item p-3 border-l-4 border-slate-200">
+                            <p class="font-bold text-slate-800">Idea ${conn.fromIdea} ➞ Idea ${conn.toIdea}</p>
+                            <p class="italic text-sm text-gray-600 mt-1">🧩 Tie-in: "${conn.tieIn}"</p>
+                            <p class="text-xs mt-2"><strong class="text-gray-700">💡 Why it works:</strong> ${conn.whyItWorks}</p>
+                        </div>
+                    `;
+                });
+                html += '</div></div>';
+            }
+            
+            return html;
+        }
+
+
+        function populateOutlineReference() { 
+            const outlineHTML = formatOutlineSuggestions(essayData.linkingText);
+            outlineReferenceContent.innerHTML = `<h4 class="font-bold mb-2">Your Outline:</h4><div class="p-2 bg-white rounded border mb-4">${outlineHTML}</div><h4 class="font-bold mb-2">Your Core Ideas:</h4>`; 
+            essayData.userIdeas.forEach((idea, i) => { 
+                const el = document.createElement('div'); 
+                el.className = 'p-2 mt-1 bg-white rounded border suggestion-item'; 
+                el.innerHTML = `<strong class="text-gray-900">Idea #${i+1}:</strong> ${idea}`; 
+                outlineReferenceContent.appendChild(el); 
+            }); 
+        }
+        function toggleCollapsible(element, forceOpen = false) {
+            const arrow = element.querySelector('.collapsible-arrow');
+            const content = element.nextElementSibling;
+            if (!content) return;
+
+            if (forceOpen) {
+                if(content.classList.contains('hidden')){
+                    if (arrow) arrow.classList.add('rotated');
+                    content.classList.remove('hidden');
+                }
+            } else {
+                 if (arrow) arrow.classList.toggle('rotated');
+                 content.classList.toggle('hidden');
+            }
+        }
+        function updateGlobalApiStatus(isValid) {
+            const statusDiv = globalApiStatus;
+            const dot = statusDiv.querySelector('div');
+            const span = statusDiv.querySelector('span');
+
+            if (isValid === null) {
+                statusDiv.classList.add('hidden');
+                return;
+            }
+
+            statusDiv.classList.remove('hidden');
+            if (isValid) {
+                dot.className = 'h-2 w-2 rounded-full bg-green-500';
+                span.textContent = 'API Key Valid';
+                span.className = 'text-green-700';
+            } else {
+                dot.className = 'h-2 w-2 rounded-full bg-red-500';
+                span.textContent = 'API Key Invalid';
+                span.className = 'text-red-700';
+            }
+        }
+        function displaySuggestionsInContainer(type, title, suggestions) {
+            const container = resultContainers[type];
+            
+            let contentHTML = `<h3 class="font-semibold cursor-pointer flex items-center p-3" onclick="toggleCollapsible(this)">
+                <svg class="collapsible-arrow h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
+                ${title}
+            </h3>
+            <div class="hidden p-4 border-t text-sm">`;
+
+            if (type === 'feedback' && suggestions.length > 2) {
+                 contentHTML += `<p class="mb-2 p-2 bg-purple-100 rounded-md">${suggestions[0]}</p>`; // Positive feedback
+                 suggestions.slice(1, -1).forEach(change => {
+                    contentHTML += `<p class="text-gray-700 mb-1 p-2 suggestion-item">• ${change}</p>`;
+                });
+                contentHTML += `<p class="mt-2 p-2 bg-purple-100 rounded-md">${suggestions[suggestions.length - 1]}</p>`; // Closing statement
+            } else {
+                 suggestions.forEach(change => {
+                    contentHTML += `<p class="text-gray-700 mb-1 p-2 suggestion-item">• ${change}</p>`;
+                });
+            }
+
+            contentHTML += `</div>`;
+            
+            container.innerHTML = contentHTML;
+            container.classList.remove('hidden');
+            toggleCollapsible(container.querySelector('h3'), true); // Force open the new result
+        }
+
+         function displayExplainedSuggestions(type, title, originalText, suggestions) {
+            const container = resultContainers[type];
+
+            let contentHTML = `<h3 class="font-semibold cursor-pointer flex items-center p-3" onclick="toggleCollapsible(this)">
+                <svg class="collapsible-arrow h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
+                ${title}
+            </h3>
+            <div class="hidden p-4 border-t text-sm space-y-3">`;
+            
+            contentHTML += `<blockquote class="border-l-4 border-gray-300 pl-4 italic text-gray-500">"${originalText}"</blockquote>`;
+
+            suggestions.forEach(item => {
+                contentHTML += `<div class="p-2 suggestion-item"><p class="font-semibold text-gray-800">${item.suggestion}</p><p class="text-xs text-gray-600 pl-2"><em>Reason: ${item.explanation}</em></p></div>`;
+            });
+            contentHTML += `</div>`;
+            
+            container.innerHTML = contentHTML;
+            container.classList.remove('hidden');
+            toggleCollapsible(container.querySelector('h3'), true);
+        }
+
+        function displayProofreadSuggestions(suggestions) {
+            const container = resultContainers.proofread;
+            
+            let contentHTML = `<h3 class="font-semibold cursor-pointer flex items-center p-3" onclick="toggleCollapsible(this)">
+                <svg class="collapsible-arrow h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
+                ✅ Proofread Suggestions
+            </h3>
+            <div class="hidden p-4 border-t text-sm">`;
+
+            if (suggestions.length === 0) {
+                 contentHTML += `<p class="text-gray-700 mb-1 p-2">No grammatical issues found in the selected text.</p>`;
+            } else {
+                suggestions.forEach(item => {
+                    contentHTML += `<div class="p-2 suggestion-item"><p class="font-semibold text-gray-800">${item.suggestion}</p><p class="text-xs text-gray-600 pl-2"><em>Reason: ${item.explanation}</em></p></div>`;
+                });
+            }
+            contentHTML += `</div>`;
+            
+            container.innerHTML = contentHTML;
+            container.classList.remove('hidden');
+            toggleCollapsible(container.querySelector('h3'), true);
+        }
+
+        function displayFactCheckResults(selectedText, result) {
+            const container = resultContainers.factCheck;
+            
+            let contentHTML = `<h3 class="font-semibold cursor-pointer flex items-center p-3" onclick="toggleCollapsible(this)">
+                <svg class="collapsible-arrow h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
+                🔍 Fact-Check Results
+            </h3>
+            <div class="hidden p-4 border-t text-sm space-y-4">`;
+            
+            contentHTML += `<p class="font-bold italic text-gray-700">"${selectedText}" 🔍</p>`;
+            
+            contentHTML += `<div class="mt-2 p-3 bg-indigo-100 rounded-md text-gray-800">${result.text}</div>`;
+            
+            if (result.sources && result.sources.length > 0) {
+                contentHTML += '<div class="mt-3"><h4 class="font-semibold text-gray-800 mb-2">Sources:</h4><ul class="list-disc list-inside space-y-1">';
+                result.sources.forEach(source => {
+                    contentHTML += `<li><a href="${source.uri}" target="_blank" class="text-blue-600 hover:underline">${source.title}</a></li>`;
+                });
+                contentHTML += '</ul></div>';
+            } else {
+                contentHTML += '<p class="mt-3 text-sm text-gray-500">No sources were cited by the model for this claim.</p>';
+            }
+
+            contentHTML += `</div>`;
+            
+            container.innerHTML = contentHTML;
+            container.classList.remove('hidden');
+            toggleCollapsible(container.querySelector('h3'), true);
+        }
+
+        async function runAPITask(task, btn) {
+            if (!btn) {
+                try {
+                    await task();
+                    return true;
+                } catch(error) {
+                    console.error("API Error:", error);
+                     if (error.message.toLowerCase().includes('overloaded')) {
+                         alert('The AI is currently experiencing high traffic. Please wait a moment and try again.');
+                    } else {
+                         alert(`An error occurred: ${error.message}`);
+                    }
+                    return false;
+                }
+            }
+            
+            const spinner = btn.querySelector('svg');
+            const btnText = btn.querySelector('.btn-text');
+            const originalText = btnText ? btnText.textContent : '';
+
+            btn.disabled = true;
+            if (spinner) spinner.classList.remove('hidden');
+            if (btnText) btnText.textContent = 'Loading...';
+            
+            try {
+                await task();
+            } catch (error) {
+                console.error("API Error:", error);
+                if (error.message.toLowerCase().includes('overloaded')) {
+                    alert('The AI is currently experiencing high traffic. Please wait a moment and try again.');
+                } else {
+                    alert(`An error occurred: ${error.message}`);
+                }
+            } finally {
+                btn.disabled = false;
+                if (spinner) spinner.classList.add('hidden');
+                if (btnText) btnText.textContent = originalText;
+            }
+        }
+
+        // ---------------------------------------------------------------------------------
+        // 7. API COMMUNICATION & CORE LOGIC
+        // ---------------------------------------------------------------------------------
+        function getDownloadFilename() {
+            const title = essayTitleInput.value.trim();
+            const sanitizedTitle = title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            return sanitizedTitle || 'essay_draft';
+        }
+        async function callGeminiAPI(systemPrompt, isJson = false, apiKeyOverride = null, useGrounding = false) {
+            const startTime = performance.now();
+            const key = apiKeyOverride || essayData.apiKey;
+            const maxRetries = 3; 
+            let delay = 2000;
+
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${key}`;
+                    const payload = { contents: [{ parts: [{ text: systemPrompt }] }] };
+                    if (isJson) { payload.generationConfig = { responseMimeType: "application/json" }; }
+                    if (useGrounding) { payload.tools = [{ "google_search": {} }]; }
+                    
+                    const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+
+                    if (!response.ok) {
+                        const errorBody = await response.json();
+                        const errorMessage = errorBody.error.message;
+                        if (errorMessage.includes("API key not valid")) {
+                             throw new Error('API key not valid. Please check your key.');
+                        }
+                        throw new Error(errorMessage);
+                    }
+
+                    const result = await response.json();
+                    if (!result.candidates || !result.candidates[0].content || !result.candidates[0].content.parts) {
+                        throw new Error('Invalid API response structure');
+                    }
+                    updateGlobalApiStatus(true);
+                    
+                    const text = result.candidates[0].content.parts[0].text;
+                    let sources = [];
+                    const groundingMetadata = result.candidates[0].groundingMetadata;
+                    if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                        sources = groundingMetadata.groundingAttributions
+                            .map(attr => ({ uri: attr.web.uri, title: attr.web.title }))
+                            .filter(source => source.uri && source.title);
+                    }
+
+                    const endTime = performance.now();
+                    const apiCallData = {
+                        duration_ms: endTime - startTime,
+                        prompt_length: systemPrompt.length,
+                        response_length: text.length,
+                        is_json: isJson,
+                        prompt: systemPrompt,
+                        response: text,
+                        sources: sources
+                    };
+                    logEvent('API_CALL_SUCCESS', apiCallData);
+
+                    if (useGrounding) {
+                        return { text: text.trim(), sources: sources };
+                    }
+
+                    return isJson ? JSON.parse(text) : text.trim();
+
+                } catch (error) {
+                    if (error.message.includes('API key not valid')) {
+                        updateGlobalApiStatus(false);
+                        throw error;
+                    }
+
+                    console.log(`API call attempt ${i + 1} failed: ${error.message}`);
+                    logEvent('API_CALL_FAIL', { attempt: i + 1, error: error.message });
+                    if (i === maxRetries - 1) { 
+                        throw new Error(`The model seems to be overloaded. Please try again in a moment.`);
+                    }
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+            }
+        }
+        async function generateBrainstormQuestion(forceNew = false) { 
+            let prompt = `You are a helpful writing assistant. The user's essay prompt is: "${essayData.prompt}". Your goal is to help them brainstorm. Generate one simple, open-ended question about the topic. The question should be short and easy to understand. Do NOT include potential answers or complex vocabulary in the question. The goal is to make the user think for themselves.`; 
+            if (essayData.userIdeas.length > 0) {
+                prompt += `\n\nThey have already brainstormed:\n- ${essayData.userIdeas.join('\n- ')}\n\nGenerate a question that explores a new, complementary angle.`;
+            }
+            if (forceNew && essayData.allQuestions.length > 0) {
+                const lastQuestion = essayData.allQuestions[essayData.allQuestions.length - 1];
+                prompt += `\n\nDo not ask this question again: "${lastQuestion}"`;
+            }
+            const newQuestion = await callGeminiAPI(prompt);
+            essayData.allQuestions.push(newQuestion);
+        }
+        async function generateLinkingIdeas() { 
+            const userIdeasText = essayData.userIdeas.map((idea, i) => `Idea #${i + 1}: ${idea}`).join('\n\n'); 
+            const prompt = `You are a writing assistant helping a user outline an essay on "${essayData.prompt}". Their raw ideas are:\n---\n${userIdeasText}\n---\nYour task is to create a structured outline. Respond with a JSON object with two keys: "connectingTheme" and "ideaConnections". "connectingTheme" should be a string for the main theme. "ideaConnections" should be an array of objects, where each object has these four string keys: "fromIdea", "toIdea", "tieIn", and "whyItWorks".`; 
+            const result = await callGeminiAPI(prompt, true);
+            return result;
+        }
+        
+        // V3 API FUNCTIONS
+        async function getProofreadSuggestions(selectedText) {
+            const prompt = `You are a meticulous and helpful editor. For the selected text, identify any potential grammatical errors, spelling mistakes, or awkward phrasing. For each issue you find, provide a clear suggestion and a brief, simple explanation of why it's a mistake. Do not rewrite the entire block of text.
+Respond with a JSON object containing one key: "suggestions".
+- "suggestions": An array of objects, where each object has two keys: "suggestion" and "explanation".
+Example: [{"suggestion": "'it's' -> 'its'", "explanation": "'it's' is a contraction for 'it is,' while 'its' is the possessive form."}]
+
+Selected Text:\n---\n${selectedText}`;
+            const result = await callGeminiAPI(prompt, true);
+            return result.suggestions || [];
+        }
+
+        async function getParaphraseSuggestions(selectedText) {
+            const prompt = `You are a writing coach. The user has selected the following text: "${selectedText}". Provide a list of 3 distinct alternative ways to phrase this. For each suggestion, provide a brief explanation of the change in tone or impact (e.g., 'This version is more concise,' or 'This option uses stronger verbs').
+Respond with a JSON object containing one key: "suggestions".
+- "suggestions": An array of objects, where each object has "suggestion" and "explanation" keys.`;
+            const result = await callGeminiAPI(prompt, true);
+            return result.suggestions;
+        }
+        
+        async function getFactCheck(selectedText) {
+            const prompt = `You are a neutral research assistant. The user has highlighted the following claim: '${selectedText}'. Your task is to use your search tool to find 2-3 reputable sources that address this claim. For each source, provide the title, the URL, and a direct quote or summary that confirms or challenges the information. Do not state whether the claim is 'true' or 'false.' Your only role is to present the evidence you find for the user to review.`;
+            const result = await callGeminiAPI(prompt, false, null, true);
+            return result;
+        }
+
+        async function getToneSuggestions(selectedText, tone) {
+            const prompt = `You are an expert writing coach. A user wants to make the following text sound more "${tone}":\n\n"${selectedText}"\n\nYour task is to provide a list of 3-5 specific, actionable suggestions. **Do not rewrite the text for them.** Focus on suggesting alternative words or ways to rephrase certain sentences.
+Respond with a JSON object containing one key: "suggestions".
+- "suggestions": An array of strings.`;
+            const result = await callGeminiAPI(prompt, true);
+            return result.suggestions;
+        }
+
+        async function getSummary() {
+            const prompt = `You are an analytical assistant. Read the following draft and extract the main thesis and the topic sentence of each key paragraph. Present this as a concise, single summary string, NOT a list.
+Draft:\n---\n${essayData.finalDraft}`;
+            const result = await callGeminiAPI(prompt, false);
+            return result;
+        }
+
+
+        async function getTitleSuggestions() {
+            const prompt = `You are a creative assistant. Based on the following essay, generate a list of 5 potential titles. The titles should be engaging and relevant to the essay's content.
+Respond with a JSON object containing one key: "titles".
+- "titles": An array of 5 strings.
+
+Essay Draft:\n---\n${essayData.finalDraft}`;
+            const result = await callGeminiAPI(prompt, true);
+            return result.suggestions;
+        }
+        async function getRefinementSuggestions() { 
+            const prompt = `You are an expert writing coach. A user has written a draft for an essay on "${essayData.prompt}". Start with a single sentence of casual, positive encouragement about what works well, linking it to their topic. Then, provide a list of actionable suggestions for improvement. Do not rewrite the text for them. End with a brief, encouraging closing statement.
+Respond with a JSON object containing three keys: "positiveFeedback", "suggestions", and "closingStatement".
+- "positiveFeedback": A string.
+- "suggestions": An array of strings.
+- "closingStatement": A string.
+
+Original Draft:\n---\n${essayData.finalDraft}`; 
+            const result = await callGeminiAPI(prompt, true);
+            return result;
+        }
+        async function getWordCountSuggestions(target) {
+            const currentCount = essayData.finalDraft.trim().split(/\s+/).length;
+            const prompt = `You are an expert writing coach. A user has a draft of ${currentCount} words and wants to reach a target of ~${target} words for their essay on "${essayData.prompt}".
+Your task is to provide a list of high-level, actionable strategies to help them meet their goal. Do NOT rewrite any part of their essay. Focus on positive reinforcement and explaining the impact of the suggestions.
+Respond with a JSON object containing one key: "suggestions".
+- "suggestions": An array of strings. Each string should be a strategic suggestion. For the most impactful ideas, add "(High Impact)" to the end of the string.
+Example suggestions:
+- "Expand on your second main idea by adding a specific, real-world example to make your point stronger. (High Impact)"
+- "Combine the last two sentences of paragraph 3 to make your argument more concise."
+
+User's Draft:\n---\n${essayData.finalDraft}`;
+            const result = await callGeminiAPI(prompt, true);
+            return result.suggestions;
+        }
+    </script>
+</body>
+<!-- END OF FILE: 2025-10-08T14:03:00.000Z -->
+</html>
+
